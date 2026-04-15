@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情绪开源墙 | 信息工程学院学院 · 代码写意</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: linear-gradient(145deg, #f7f9fc 0%, #eef2f5 100%);
+            color: #1a2a3a;
+            padding: 2rem 1rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 2rem; }
+        h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .card {
+            background: rgba(255,255,255,0.85);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        .btn {
+            background: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2b5876;
+            border: 1px solid #bdd4e7;
+        }
+        .btn-primary {
+            background: #2b5876;
+            color: white;
+            border: none;
+        }
+        .works-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            background: white;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        .fallback {
+            text-align: center;
+            padding: 2rem;
+            background: #f0f2f5;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #6c86a3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🎨 情绪开源墙</h1>
+        <p>代码写意 · 用生成式编程外化情绪</p>
+    </header>
+
+    <div class="card">
+        <h3>📌 如何参与？</h3>
+        <p><strong>1. 创作代码</strong>：使用 p5.js 编写情绪可视化（可用下方范例）。</p>
+        <p><strong>2. 提交作品</strong>：点击「上传作品」按钮，填写信息并上传截图/动图。</p>
+        <p><strong>3. Fork & 二次创作</strong>：点击他人作品的「Fork 修改」→ 在 OpenProcessing 中改代码 → 重新提交。</p>
+        <p><strong>4. 代码跟帖</strong>：完成修改后，点击「代码跟帖区」回复你的修改版链接。</p>
+        <div class="btn-group">
+            <a href="#" class="btn btn-primary" id="uploadBtn">📤 上传作品</a>
+            <a href="#" class="btn" id="forkGuideBtn">💬 代码跟帖区</a>
+            <a href="https://openprocessing.org/" class="btn" target="_blank">🎛️ 在线写代码</a>
+        </div>
+        <p><strong>🎨 范例代码（直接复制使用）</strong><br>
+        <a href="#" id="example1">焦虑 · 杂乱线条</a> | 
+        <a href="#" id="example2">平静 · 呼吸圆</a> | 
+        <a href="#" id="example3">归属 · 粒子汇聚</a> | 
+        <a href="#" id="example4">快乐 · 彩色粒子</a>
+        </p>
+    </div>
+
+    <h2>✨ 作品画廊</h2>
+    <div class="works-wrapper">
+        <iframe id="notionFrame" src=""></iframe>
+        <div class="fallback" id="fallbackMsg">⚠️ 当前访问量较大，已切换至轻量模式。请稍后再试。</div>
+    </div>
+
+    <footer>
+        主办：信息工程学院 · 主理人：陈文琴 & 徐静怡<br>
+        活动时间：2026.4.20 - 5.10
+    </footer>
+</div>
+
+<script>
+    // 这里后面会填入链接，请先留空，等阶段三、四完成后再回来填
+    // 占位符：待替换
+    const TALLY_LINK = "https://tally.so/r/KYBQeg
+";
+    const ISSUE_LINK = "https://github.com/chenwenqin07/emotion-wall/issues/1";
+    const NOTION_EMBED_LINK = "https://clean-guardian-a44.notion.site/3430397dec0b80f98d9fd07bdff0fd0f?embed=1
+";
+    const EXAMPLE_LINKS = {
+        ex1: "https://openprocessing.org/sketch/2917687
+",
+        ex2: "https://openprocessing.org/sketch/2917693",
+        ex3: "https://openprocessing.org/sketch/2917700",
+        ex4: "https://openprocessing.org/sketch/2917702"
+    };
+
+    document.getElementById("uploadBtn").href = TALLY_LINK;
+    document.getElementById("forkGuideBtn").href = ISSUE_LINK;
+    document.getElementById("example1").href = EXAMPLE_LINKS.ex1;
+    document.getElementById("example2").href = EXAMPLE_LINKS.ex2;
+    document.getElementById("example3").href = EXAMPLE_LINKS.ex3;
+    document.getElementById("example4").href = EXAMPLE_LINKS.ex4;
+    document.getElementById("notionFrame").src = NOTION_EMBED_LINK;
+
+    // 降级逻辑
+    const iframe = document.getElementById("notionFrame");
+    const fallback = document.getElementById("fallbackMsg");
+    let loaded = false;
+    const timeout = setTimeout(() => {
+        if (!loaded) {
+            iframe.style.display = "none";
+            fallback.style.display = "block";
+        }
+    }, 8000);
+    iframe.onload = () => { loaded = true; clearTimeout(timeout); };
+</script>
+</body>
+</html>
